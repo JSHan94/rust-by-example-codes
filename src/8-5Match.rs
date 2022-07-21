@@ -57,5 +57,56 @@ fn main() {
         }
     }
 
-    let ref 
+    let mut mut_value = 6;
+    match mut_value {
+        ref mut m => {
+            *m += 10;
+            println!("{:?} is ref mut",m);
+        }
+    }
+
+    // structs
+    #[derive(Debug)]
+    struct Foo {
+        x: (u32, u32),
+        y: u32
+    }
+
+    let foo = Foo { x:(1,2), y: 3 };
+    match foo {
+        Foo {x : (1,b), y} => println!("{:?} is Foo{{x:(1,b), y}}", foo),
+        Foo {x, ..} => println!("{:?} is Foo{{x, ..}}", foo),
+    }
+
+    // match guards (filtering)
+    let pairs = vec![(2,-2), (2,2), (3,0)];
+    for pair in pairs {
+        match pair {
+            (x,y) if x == y => println!("{:?} if x == y", pair),
+            (x,y) if x + y ==0 => println!("{:?} if x + y == 0 ", pair),
+            (x,_) if x % 2 == 1 => println!("{:?} if x % 2 == 1 ",pair),
+            _ => ()
+        }
+    }
+
+    // match binding
+    fn age() -> u32{
+        15
+    }
+    match age() {
+        0 => println!("not binding"),
+        n @ 1..=3 => println!("n @ 1..=3"),
+        n @ 3..=19 => println!("n @ 3..=19"),
+        n => println!("my age is {:?}", age()),
+    }
+
+    fn some_number() -> Option<u32>{
+        Some(42)
+    }
+    match some_number(){
+        Some(n@2..=52) => println!("Some({:?}) is Some(n@2..52)", some_number().unwrap()),
+        Some(n) => println!("Some({:?})Some(n)", some_number().unwrap()),
+        _ => ()
+    }
+    
 }
