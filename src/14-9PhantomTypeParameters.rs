@@ -31,6 +31,10 @@ fn main() {
 
 use std::ops::Add;
 
+
+// #![attri] : inner attributes - blocks, functions, implementations, modules accepts
+// #[attri] : outer attributes - all declarations accepts
+
 #[derive(Debug,Clone,Copy)]
 enum Inch{}
 #[derive(Debug,Clone,Copy)]
